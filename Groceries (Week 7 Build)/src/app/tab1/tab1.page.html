@@ -1,0 +1,48 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Grocery
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Grocery</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-text class="ion-text-center" color="primary" *ngIf = "items.length === 0">
+    <h3>Your grocery list is currently empty.</h3>
+  </ion-text>
+
+<!-- Defines a basic grocery sliding list -->
+  <ion-list>
+    <ion-item-sliding *ngFor = "let item of items; let i = index">
+      <ion-item>
+        <ion-label>{{item.name}} x{{item.quantity}}</ion-label>
+        <p>{{item.price | currency:"USD":true:"1.2"}}</p>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option (click) = "edit_item(item, i)" color = "primary">
+          <ion-icon name="create" style="padding:10px"></ion-icon>
+        </ion-item-option>
+        <ion-item-option (click) = "share_item(item, i)" color = "success">
+          <ion-icon name="share" style="padding:10px"></ion-icon>
+        </ion-item-option>
+        <ion-item-option (click) = "remove_item(item,_id)" color = "secondary">
+          <ion-icon name="trash" style="padding:10px"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+<!-- Defines a floating action button for adding grocery items -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click) = "add_item()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>
